@@ -64,9 +64,9 @@ class Synapse_dataset(Dataset):
             image, label = data['image'], data['label']
         else:
             vol_name = self.sample_list[idx].strip('\n')
-            filepath = self.data_dir + "/{}.npy.h5".format(vol_name)
-            data = h5py.File(filepath)
-            image, label = data['image'][:], data['label'][:]
+            filepath = self.data_dir + "/{}.npz".format(vol_name)
+            data = np.load(filepath)
+            image, label = data['image'], data['label']
 
         sample = {'image': image, 'label': label}
         if self.transform:
